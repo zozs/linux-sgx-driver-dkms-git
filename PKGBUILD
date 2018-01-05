@@ -1,8 +1,9 @@
 # Maintainer: robertfoster
+# Contributor: zozs
 
 pkg=linux-sgx-driver
 pkgname=$pkg-dkms-git
-pkgver=1.9.r2.gcd51638
+pkgver=2.1.r0.g03e9152
 pkgrel=1
 pkgdesc="Intel® SGX Linux module - dkms"
 arch=('i686' 'x86_64')
@@ -11,13 +12,18 @@ license=('GPL2')
 depends=('dkms')
 optdepends=('linux-headers: Build the module for Arch kernel'
             'linux-lts-headers: Build the module for LTS Arch kernel')
-makedepends=('linux-headers>=4.12' 'linux-headers<4.13' 'linux>=4.12' 'linux<4.13')
-source=("$pkg::git+https://github.com/01org/linux-sgx-driver.git"
-	dkms.conf)
+makedepends=('linux-headers>=4.12' 'linux>=4.12')
+source=("$pkg::git+https://github.com/01org/linux-sgx-driver.git#branch=sgx2"
+	dkms.conf
+	makefile-no-optimization.patch)
 
 pkgver() {
   cd $srcdir/$pkg
   git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | cut -c 12-
+}
+
+prepare() {
+  patch -p1 -i makefile-no-optimization.patch
 }
 
 package() {
@@ -46,5 +52,6 @@ package() {
     done
 }
 
-md5sums=('SKIP'
-         '620201f62a773287ddfa6e9b0ffde1f8')
+sha256sums=('SKIP'
+            'e2fbb933feb550fa616ed3df4ddd6942447f262f9efe02092bf58cb0f6ed4b70'
+            '6679c88a969da5f09b324a37dd0cb1f9c8e4b4f3cd261c7103f22664c247b4c5')

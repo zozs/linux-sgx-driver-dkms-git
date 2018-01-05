@@ -1,0 +1,12 @@
+diff -ura package.orig/linux-sgx-driver/Makefile package.new/linux-sgx-driver/Makefile
+--- package.orig/linux-sgx-driver/Makefile	2018-01-05 14:56:54.203757303 +0100
++++ package.new/linux-sgx-driver/Makefile	2018-01-05 14:57:19.902852469 +0100
+@@ -13,7 +13,7 @@
+ PWD  := $(shell pwd)
+ 
+ default:
+-	$(MAKE) -C $(KDIR) SUBDIRS=$(PWD) CFLAGS_MODULE="-DDEBUG -g -O0" modules
++	$(MAKE) -C $(KDIR) M=$(PWD) CFLAGS_MODULE="-DDEBUG -g" modules
+ 
+ install: default
+ 	$(MAKE) INSTALL_MOD_DIR=kernel/drivers/intel/sgx -C $(KDIR) M=$(PWD) modules_install
