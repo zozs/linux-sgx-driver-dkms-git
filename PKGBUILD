@@ -3,7 +3,7 @@
 
 pkg=linux-sgx-driver
 pkgname=$pkg-dkms-git
-pkgver=2.1.r0.g03e9152
+pkgver=2.1.r18.gf7dc97c
 pkgrel=1
 pkgdesc="Intel® SGX Linux module - dkms"
 arch=('i686' 'x86_64')
@@ -23,7 +23,8 @@ pkgver() {
 }
 
 prepare() {
-  patch -p1 -i makefile-no-optimization.patch
+  #patch -p1 -i makefile-no-optimization.patch
+  echo hej
 }
 
 package() {
